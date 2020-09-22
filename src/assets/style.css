@@ -1,0 +1,78 @@
+.container {
+    width: 1140px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-top: 20px;
+    height: 50px;
+    width: 100%;
+    text-align: left;
+}
+
+.header__title {
+    font-size: 24px;
+}
+
+.tabs {
+    text-align: left;
+}
+
+.tab {
+    border: none;
+    background: #c800ff;
+    color: #fff;
+    font-size: 18px;
+    height: 50px;
+    width: 50%;
+    cursor: pointer;
+}
+
+.active {
+    background: #B100E8;
+}
+
+.messages {
+    margin-top: 20px;
+}
+
+.messages__item {
+    padding-bottom: 20px;
+}
+
+.messages__item-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.messages__item-name span {
+    color: #B100E8;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1000px 140px;
+    text-align: left;
+}
+
+.form__input {
+    height: 20px;
+    padding: 5px;
+}
+
+.form__btn {
+    width: 100%;
+    height: 34px;
+    background: #B100E8;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
