@@ -7,8 +7,8 @@ export default class Tabs extends Component {
             <>
                 <div className="container">
                     <div className="tabs">
-                        <button className="tab active">Флуд</button>
-                        <button className="tab">Работа</button>
+                        <button className="tab active" id="flud" onClick={this.props.onChange}>Флуд</button>
+                        <button className="tab" id="work" onClick={this.props.onChange}>Работа</button>
                     </div>
                 </div>   
             </>

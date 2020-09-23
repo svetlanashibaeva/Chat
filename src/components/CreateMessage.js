@@ -39,7 +39,6 @@ export default class CreateMessage extends Component {
                         onChange={this.onValueChange}
                         value={this.state.text}
                     />
-                    {console.log(this.state.text)}
                     <button 
                         type="submit"
                         className="form__btn"
