@@ -1,4 +1,5 @@
 import React, { Component }from 'react';
+
 import "../assets/style.css";
 
 export default class Tabs extends Component {

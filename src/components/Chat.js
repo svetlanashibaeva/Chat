@@ -2,17 +2,20 @@ import React, { Component } from "react";
 import data from "../db.json";
 import CreateMessage from './CreateMessage';
 import Tabs from './Tabs';
+import Header from './Header';
+
 import "../assets/style.css";
 
-let changeItemId = null
-let chatTheme = "flud"
+let changeItemId = null;
+let chatTheme;
+let selfId, selfName;
 
-export default class ChatFlud extends Component {
+export default class Chat extends Component {
 
     constructor() {
         super();
+
         this.state = {
-            selfId: 1,
             items: []
         };
 
@@ -20,21 +23,49 @@ export default class ChatFlud extends Component {
         this.deleteItem = this.deleteItem.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
         this.changeTab = this.changeTab.bind(this);
+        this.loadLocal = this.loadLocal.bind(this);
     }
 
     componentDidMount() {
-        this.loadLocal()
+        chatTheme = "flud";
+        this.setupUser();
+        this.loadLocal();
+    }
+
+    setupUser() {
+        const users = JSON.parse(localStorage.getItem('users'));
+
+        const name = localStorage.getItem('currentUserName');
+        let id;
+
+        if (users) {
+            const index = users.findIndex(elem => elem.name === name);
+            console.log("index", index)
+            if (index > -1) {
+                id = users[index].id
+            } else {
+                id = users.length + 1;
+                localStorage.setItem('users', JSON.stringify([...users, {id, name}]))
+            }
+        } else {
+            id = 1;
+            localStorage.setItem('users', JSON.stringify([{id, name}]))
+        }
+        selfId = id;
+        selfName = name;
+
+        localStorage.removeItem('currentUserName');
     }
 
     loadLocal() {
-        const local = JSON.parse(localStorage.getItem(chatTheme)) 
+        const local = JSON.parse(localStorage.getItem(chatTheme)); 
 
         if (local) {
             this.setState({
                 items: local
             });
         } else {
-            this.saveChanges(chatTheme == "flud" ? data.flud : data.work)
+            this.saveChanges(chatTheme === "flud" ? data.flud : data.work)
         }
     }
 
@@ -46,26 +77,30 @@ export default class ChatFlud extends Component {
         if (changeItemId) {
             let items = [...this.state.items]
             const index = items.findIndex(elem => elem.id === changeItemId);
-
-            items[index].text = text
-            changeItemId = null
+            items[index].text = text;
+            changeItemId = null;
             this.saveChanges(items)
             return
         }
 
+        let d = new Date();
+        let res = [d.getHours(), d.getMinutes(), d.getSeconds()].map(function (x) {
+            return x < 10 ? "0" + x : x
+          }).join(":");
+
         const newItems = {
-            userId: this.state.selfId,
-            userName: "Иван Петриченко",
+            userId: selfId,
+            userName: selfName,
             text: text,
             id: this.state.items.length + 1,
-            time: Date()
+            time: res
         };
 
         this.saveChanges([...this.state.items, newItems])
     }
 
     deleteItem(id) {
-        let items = [...this.state.items]
+        let items = [...this.state.items];
         const index = items.findIndex(elem => elem.id === id);
         items.splice(index, 1)
 
@@ -73,11 +108,10 @@ export default class ChatFlud extends Component {
     }
 
     changeItem(id) {
-        let items = [...this.state.items]
+        let items = [...this.state.items];
         const index = items.findIndex(elem => elem.id === id);
-
-        changeItemId = items[index].id
-        document.querySelector('.form__input').value = items[index].text
+        changeItemId = items[index].id;
+        document.querySelector('.form__input').value = items[index].text;
     }
 
     saveChanges(items) {
@@ -91,7 +125,12 @@ export default class ChatFlud extends Component {
     changeTab(e) {
         chatTheme = e.target.id;
         changeItemId = null;
-        e.target.classList.add('active');
+
+        const tabs = document.querySelectorAll('.tab');
+        if (e.target) {
+            tabs.forEach(tab => tab.classList.remove('active'))
+            e.target.classList.add('active');
+        }
 
         this.loadLocal()
     }
@@ -101,12 +140,14 @@ export default class ChatFlud extends Component {
 
         return (
             <>
+            <Header selfName={selfName}/>
             <Tabs onChange={this.changeTab} />
                 <div className="container">
                     <div className="messages">
                     {items.map((item) => (
-                            <div className={item.userId === 1 ? "messages__item right" : "messages__item"} id = {item.id}>
-                                <div className="messages__item-name">{item.userName}<span> {item.time}</span>
+                        item.userId === selfId ? 
+                            (<div className="messages__item right">
+                                <div className="messages__item-name">{item.userName}<span>&nbsp;{item.time}</span>
                                     <button 
                                         type="button"
                                         className="btn-trash"
@@ -119,11 +160,15 @@ export default class ChatFlud extends Component {
                                         className="btn-trash"
                                         onClick = {() => this.changeItem(item.id)}
                                         > 
-                                        <i className="fa fa-star"></i>
+                                        <i className="fa fa-pencil"></i>
                                     </button>
                                 </div>
                                 <div className="messages__item-text">{item.text} </div>
-                            </div> 
+                            </div>) : 
+                            (<div className="messages__item">
+                                <div className="messages__item-name">{item.userName}<span>&nbsp;{item.time}</span> </div>
+                                <div className="messages__item-text">{item.text} </div>
+                            </div>)
                     ))}
                     </div>
                 </div>

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+
 import "../assets/style.css";
 
 export default class CreateMessage extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             text: ""
         }
@@ -31,7 +32,6 @@ export default class CreateMessage extends Component {
             <>
             <div className="container">
                 <form className="form" onSubmit = {this.onSubmit}>
-                    
                     <input
                         type="text"
                         placeholder="Написать сообщение..."
@@ -42,8 +42,7 @@ export default class CreateMessage extends Component {
                     <button 
                         type="submit"
                         className="form__btn"
-                    >
-                        Отправить</button>
+                    > Отправить</button>
                 </form>
             </div>     
             </>

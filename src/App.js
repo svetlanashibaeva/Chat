@@ -1,13 +1,23 @@
 import React from 'react';
-import './App.css';
-import Header from './components/Header';
 import Chat from './components/Chat';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Login from './components/Login';
+
+import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Chat /> 
+      <Router>
+        <Switch>
+          <Route path="/" component={Login} exact />
+          <Route path="/chat" component={Chat} />
+        </Switch>
+      </Router>
     </div>
   );
 }
