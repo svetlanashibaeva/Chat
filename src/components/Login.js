@@ -19,6 +19,11 @@ const Login = () => {
         if (text) {
             localStorage.setItem('currentUserName', text )
             history.push("/chat");
+        } else {
+            document.querySelector('.form-login__input').focus();
+            const div = document.createElement('div');
+            div.innerHTML = "Пожалуйста, авторизуйтесь";
+            document.querySelector('.form-login').append(div);
         }
     }
 

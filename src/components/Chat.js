@@ -40,7 +40,7 @@ export default class Chat extends Component {
 
         if (users) {
             const index = users.findIndex(elem => elem.name === name);
-            console.log("index", index)
+    
             if (index > -1) {
                 id = users[index].id
             } else {
@@ -64,6 +64,7 @@ export default class Chat extends Component {
             this.setState({
                 items: local
             });
+            document.querySelector('.messages').scrollTop = document.querySelector('.messages').scrollHeight; 
         } else {
             this.saveChanges(chatTheme === "flud" ? data.flud : data.work)
         }
@@ -95,7 +96,6 @@ export default class Chat extends Component {
             id: this.state.items.length + 1,
             time: res
         };
-
         this.saveChanges([...this.state.items, newItems])
     }
 
@@ -116,22 +116,21 @@ export default class Chat extends Component {
 
     saveChanges(items) {
         localStorage.setItem(chatTheme, JSON.stringify(items));
-
         this.setState({
             items: items
         })
+        document.querySelector('.messages').scrollTop = document.querySelector('.messages').scrollHeight;
     }
 
     changeTab(e) {
         chatTheme = e.target.id;
         changeItemId = null;
-
         const tabs = document.querySelectorAll('.tab');
         if (e.target) {
             tabs.forEach(tab => tab.classList.remove('active'))
-            e.target.classList.add('active');
+            e.target.classList.add('active');   
         }
-
+        
         this.loadLocal()
     }
 

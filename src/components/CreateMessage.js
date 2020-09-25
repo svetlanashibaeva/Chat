@@ -25,6 +25,7 @@ export default class CreateMessage extends Component {
         this.setState({
             text:""
         })
+        
     }
 
     render() {
