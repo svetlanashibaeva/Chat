@@ -111,7 +111,7 @@ export default class Chat extends Component {
         let items = [...this.state.items];
         const index = items.findIndex(elem => elem.id === id);
         changeItemId = items[index].id;
-        document.querySelector('.form__input').value = items[index].text;
+        document.querySelector('.form-input').value = items[index].text;
     }
 
     saveChanges(items) {
@@ -145,8 +145,8 @@ export default class Chat extends Component {
                     <div className="messages">
                     {items.map((item) => (
                         item.userId === selfId ? 
-                            (<div className="messages__item right">
-                                <div className="messages__item-name">{item.userName}<span>&nbsp;{item.time}</span>
+                            (<div className="messages-item right">
+                                <div className="messages-item-name">{item.userName}<span>&nbsp;{item.time}</span>
                                     <button 
                                         type="button"
                                         className="btn-trash"
@@ -162,11 +162,11 @@ export default class Chat extends Component {
                                         <i className="fa fa-pencil"></i>
                                     </button>
                                 </div>
-                                <div className="messages__item-text">{item.text} </div>
+                                <div className="messages-item-text">{item.text} </div>
                             </div>) : 
-                            (<div className="messages__item">
-                                <div className="messages__item-name">{item.userName}<span>&nbsp;{item.time}</span> </div>
-                                <div className="messages__item-text">{item.text} </div>
+                            (<div className="messages-item">
+                                <div className="messages-item-name">{item.userName}<span>&nbsp;{item.time}</span> </div>
+                                <div className="messages-item-text">{item.text} </div>
                             </div>)
                     ))}
                     </div>

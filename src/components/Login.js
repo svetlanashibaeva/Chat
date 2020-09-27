@@ -20,7 +20,7 @@ const Login = () => {
             localStorage.setItem('currentUserName', text )
             history.push("/chat");
         } else {
-            document.querySelector('.form-login__input').focus();
+            document.querySelector('.form-login-input').focus();
             const div = document.createElement('div');
             div.innerHTML = "Пожалуйста, авторизуйтесь";
             document.querySelector('.form-login').append(div);
@@ -35,7 +35,7 @@ const Login = () => {
                 <input
                     type="text"
                     placeholder="Введите логин"
-                    className="form-login__input"
+                    className="form-login-input"
                     onChange={onValueChange}
                 />
                 <button className="btn-login" onClick={onLogin}>Вход</button>

@@ -11,7 +11,7 @@ export default class Header extends Component {
                     <Link to="/">
                         <button className="btn-exit">Выйти</button>
                     </Link>
-                    <div className="header__title">&nbsp;Вы зашли под именем {this.props.selfName}</div>
+                    <div className="header-title">&nbsp;Вы зашли под именем {this.props.selfName}</div>
                 </div>
             </div> 
         )

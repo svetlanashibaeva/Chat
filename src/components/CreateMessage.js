@@ -36,13 +36,13 @@ export default class CreateMessage extends Component {
                     <input
                         type="text"
                         placeholder="Написать сообщение..."
-                        className="form__input"
+                        className="form-input"
                         onChange={this.onValueChange}
                         value={this.state.text}
                     />
                     <button 
                         type="submit"
-                        className="form__btn"
+                        className="form-btn"
                     > Отправить</button>
                 </form>
             </div>     
